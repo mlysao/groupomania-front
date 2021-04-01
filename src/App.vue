@@ -1,17 +1,13 @@
 <template>
   <div id="app" class="container mt-5">
     <img alt="Groupomania logo" src="./assets/logo.png" class="fill">
-    <accueil></accueil>
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
-import Accueil from "@/components/Accueil";
 export default {
-  name: 'App',
-  components: {
-    'accueil': Accueil
-  }
+  name: 'App'
 }
 </script>
 

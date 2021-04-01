@@ -9,14 +9,12 @@
         <label for="password">Mot de passe</label>
         <input type="password" id="password" class="form-control" v-model="formData.password">
       </div>
-      <div class="btn btn-primary mt-2" v-on:click="signup">S'inscrire</div>
+      <div class="btn btn-primary mt-2" @click="signup">S'inscrire</div>
     </form>
   </div>
 </template>
 
 <script>
-import axios from "axios";
-
 export default {
   name: "Signup",
   data(){
@@ -29,7 +27,7 @@ export default {
   },
   methods: {
     signup: function (){
-      axios
+      this.$http
       .post('http://localhost:3000/api/auth/signup', {
         email: this.formData.email,
         password: this.formData.password

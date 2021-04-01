@@ -10,14 +10,12 @@
         <input type="password" id="password" class="form-control" v-model="formData.password">
       </div>
     </form>
-    <div class="btn btn-primary mt-2" v-on:click="login">Se connecter</div>
+    <div class="btn btn-primary mt-2" @click="login">Se connecter</div>
     <p class="text-danger mt-2" v-if="errorMsg">{{ errorMsg }}</p>
   </div>
 </template>
 
 <script>
-import axios from "axios";
-
 export default {
   name: "Login",
   data() {
@@ -31,13 +29,17 @@ export default {
   },
   methods: {
     login: function (){
-      axios
+      this.$http
           .post('http://localhost:3000/api/auth/login', {
             email: this.formData.email,
             password: this.formData.password
           })
           .then(reponse => {
-            console.log(reponse);
+            console.log(reponse)
+            if (reponse.status === 200 && 'token' in reponse.data) {
+              sessionStorage.setItem('token', reponse.data.token);
+              this.$router.push('/9gag')
+            }
           })
           .catch(error => {
             this.errorMsg = error.response.data.error;
