@@ -12,7 +12,6 @@ export default (() => {
         if (token) {
             newConfig.headers.Authorization = `Bearer ${token}`;
         }
-        console.log(newConfig)
         return newConfig;
     }, (error) => Promise.reject(error));
     return http;

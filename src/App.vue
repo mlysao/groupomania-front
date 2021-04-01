@@ -1,6 +1,10 @@
 <template>
   <div id="app" class="container mt-5">
-    <img alt="Groupomania logo" src="./assets/logo.png" class="fill">
+    <div class="text-center">
+      <router-link to="/">
+        <img alt="Groupomania logo" src="./assets/logo.png" class="fill" width="500" height="500">
+      </router-link>
+    </div>
     <router-view></router-view>
   </div>
 </template>

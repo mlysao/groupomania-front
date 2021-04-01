@@ -1,6 +1,8 @@
 <template>
-  <div>
-    <p>Fonctionnalité Reddit ici</p>
+  <div class="card mb-5 p-5">
+    <h2 class="text-md-left">Reddit</h2>
+    <hr>
+    <p>Articles Reddit ici</p>
   </div>
 </template>
 

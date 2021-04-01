@@ -1,38 +1,38 @@
 <template>
-  <div>
-    <div class="btn btn-outline-primary mr-2" @click="toggleTabLogin">Se connecter</div>
-    <div class="btn btn-outline-primary mr-2" @click="toggleTabSignup">S'inscrire</div>
-    <div class="card mb-5">
-      <login class="p-5" v-if="toggleLogin"></login>
-      <signup class="p-5" v-if="toggleSignup"></signup>
-    </div>
+  <div class="card mb-5 p-5" v-if="login">
+    <h2 class="text-md-left">Bienvenue, vous êtes connecté</h2>
+    <hr>
+    <p class="mt-2">
+      Aller sur <router-link to="9GAG">9GAG</router-link> ou <router-link to="Reddit">Reddit</router-link> ou consulter <router-link to="Utilisateur">votre compte</router-link>
+    </p>
+    <p>
+      Vous n'êtes pas <strong>{{ utilisateur.email_display }}</strong>, <a href="/" @click="logout">se déconnecter</a>
+    </p>
+  </div>
+  <div v-else>
+    <login></login>
   </div>
 </template>
 
 <script>
-import Signup from "./Signup";
 import Login from "@/components/Login";
 
 export default {
   name: "Accueil",
   data() {
     return {
-      toggleLogin: true,
-      toggleSignup: false
+      login: !!sessionStorage.getItem('token'),
+      utilisateur: JSON.parse(sessionStorage.getItem('user'))
     }
   },
   methods: {
-    toggleTabLogin: function (){
-      this.toggleLogin =true;
-      this.toggleSignup =false;
+    logout: function (){
+      sessionStorage.removeItem('token');
+      sessionStorage.removeItem('user');
+      this.$router.push('/');
     },
-    toggleTabSignup: function (){
-      this.toggleLogin =false;
-      this.toggleSignup =true;
-    }
   },
   components: {
-    Signup,
     Login,
   }
 }

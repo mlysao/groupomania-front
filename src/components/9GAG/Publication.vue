@@ -1,5 +1,7 @@
 <template>
-  <div class="card mb-5">
+  <div class="card mb-5 p-5">
+    <h2 class="text-md-left">9GAG</h2>
+    <hr>
     <ul class="liste">
       <li v-for="(value, index) in publications" :key="index">
         <div class="card mt-5">
@@ -11,7 +13,7 @@
               {{ value.description }}
             </div>
             <div>
-              <img :src="value.image_url">
+              <img class="img-thumbnail" :src="value.image_url">
             </div>
           </div>
         </div>
