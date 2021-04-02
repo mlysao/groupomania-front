@@ -7,6 +7,9 @@
     <ul class="liste">
       <li v-for="(value, index) in publications" :key="index">
         <div id="publication">
+          <div id="attente" v-if="!value.modere && utilisateur.id === value.utilisateur.id">
+            <p class="alert-danger text-center">Publication en attente de validation</p>
+          </div>
           <div>
             <img class="avatar" :src="value.utilisateur.image_url" alt="Avatar"> Publié par {{ value.utilisateur.email_display }} le {{ value.date_publication }}
           </div>
