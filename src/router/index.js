@@ -42,6 +42,14 @@ const routes = [
         // which is lazy-loaded when the route is visited.
         component: () => import(/* webpackChunkName: "reddit" */ '../components/Utilisateur/Utilisateur.vue'),
     },
+    {
+        path: '/publication',
+        name: 'Publication',
+        // route level code-splitting
+        // this generates a separate chunk (about.[hash].js) for this route
+        // which is lazy-loaded when the route is visited.
+        component: () => import(/* webpackChunkName: "reddit" */ '../components/9GAG/Ajouter.vue'),
+    },
 ];
 
 const router = new VueRouter({

@@ -11,7 +11,10 @@
         <label for="password">Mot de passe</label>
         <input type="password" id="password" class="form-control" v-model="formData.password">
       </div>
-      <div class="btn btn-primary mt-2" @click="signup">S'inscrire</div>
+      <div class="form-group">
+        <input type="file" id="image" class="form-control-file" accept="image/jpeg, image/jpg, image/png">
+      </div>
+      <div class="btn btn-primary mt-2" @click="signup">S'inscrire</div> <div class="btn btn-light mt-2" @click="annuler">Annuler</div>
       <p class="text-danger mt-2" v-if="errorMsg">{{ errorMsg }}</p>
     </form>
   </div>
@@ -31,11 +34,13 @@ export default {
   },
   methods: {
     signup: function (){
+      const data = new FormData();
+      data.append('email', this.formData.email);
+      data.append('password', this.formData.password);
+      data.append('image', document.getElementById('image').files[0]);
+
       this.$http
-      .post('http://localhost:3000/api/auth/signup', {
-        email: this.formData.email,
-        password: this.formData.password
-      }).then(() => {
+      .post('http://localhost:3000/api/auth/signup', data).then(() => {
         this.$http
             .post('http://localhost:3000/api/auth/login', {
               email: this.formData.email,
@@ -55,6 +60,9 @@ export default {
       .catch(error => {
         this.errorMsg = error.response.data.error;
       })
+    },
+    annuler: function (){
+      this.$router.push('/');
     }
   }
 }

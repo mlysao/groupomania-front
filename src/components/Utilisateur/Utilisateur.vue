@@ -1,5 +1,5 @@
 <template>
-  <div class="card mb-5 p-5">
+  <div class="card mb-5 p-5" v-if="login">
     <h2 class="text-md-left">Mon compte</h2>
     <hr>
     <form class="mt-5">
@@ -15,6 +15,10 @@
       <p class="text-danger mt-2" v-if="errorMsg">{{ errorMsg }}</p>
     </form>
   </div>
+  <div class="card mb-5 p-5" v-else>
+    <h2 class="text-md-left">Accès non autorisé, vous n'êtes pas connecté</h2>
+    <hr>
+  </div>
 </template>
 
 <script>
@@ -22,6 +26,7 @@ export default {
   name: "Utilisateur",
   data() {
     return {
+      login: !!sessionStorage.getItem('token'),
       utilisateur: JSON.parse(sessionStorage.getItem('user')),
       errorMsg: ''
     }
