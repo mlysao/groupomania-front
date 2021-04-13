@@ -5,16 +5,17 @@
     <form class="mt-5">
       <div class="form-group">
         <label for="email">Email</label>
-        <input type="email" id="email" class="form-control" v-model="formData.email">
+        <input type="email" id="email" class="form-control" v-model="formData.email" title="Email">
       </div>
       <div class="form-group">
         <label for="password">Mot de passe</label>
-        <input type="password" id="password" class="form-control" v-model="formData.password">
+        <input type="password" id="password" class="form-control" v-model="formData.password" title="Mot de passe">
       </div>
       <div class="form-group">
-        <input type="file" id="image" class="form-control-file" accept="image/jpeg, image/jpg, image/png">
+        <label for="image">Avatar</label>
+        <input type="file" id="image" class="form-control-file" accept="image/jpeg, image/jpg, image/png" title="Avatar">
       </div>
-      <div class="btn btn-primary mt-2" @click="signup">S'inscrire</div> <div class="btn btn-light mt-2" @click="annuler">Annuler</div>
+      <div class="btn btn-primary mt-2" @click="signup" title="S'inscrire">S'inscrire</div> <div class="btn btn-light mt-2" @click="annuler" title="Annuler">Annuler</div>
       <p class="text-danger mt-2" v-if="errorMsg">{{ errorMsg }}</p>
     </form>
   </div>
