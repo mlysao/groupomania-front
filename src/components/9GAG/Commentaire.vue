@@ -89,6 +89,11 @@ export default {
             this.displayComments = false;
             this.displayCommentaires();
           })
+      this.$http
+          .get('http://localhost:3000/api/commentaires', { params: { publication: this.publication, modere: false } })
+          .then(reponse => {
+            this.commentairesNonModeres = reponse.data;
+          })
     }
   },
   components: {
