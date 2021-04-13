@@ -23,6 +23,9 @@
             <div class="btn btn-danger mt-2" @click="valider(value.id)">Valider la publication</div>
             <p class="text-danger mt-2" v-if="errorMsg">{{ errorMsg }}</p>
           </div>
+          <div id="commentaire" v-else>
+            <Commentaire :publication="value.id"></Commentaire>
+          </div>
         </div>
         <hr>
       </li>
@@ -35,6 +38,8 @@
 </template>
 
 <script>
+import Commentaire from "@/components/9GAG/Commentaire";
+
 export default {
   name: "Publication",
   data() {
@@ -45,7 +50,6 @@ export default {
       errorMsg: ''
     }
   },
-  props: ['liste'],
   mounted(){
     this.$http
         .get('http://localhost:3000/api/publications')
@@ -68,6 +72,9 @@ export default {
             this.errorMsg = error.response.data.error;
           })
     }
+  },
+  components: {
+    Commentaire
   }
 }
 </script>

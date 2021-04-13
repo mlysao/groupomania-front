@@ -16,7 +16,7 @@ const routes = [
         // route level code-splitting
         // this generates a separate chunk (about.[hash].js) for this route
         // which is lazy-loaded when the route is visited.
-        component: () => import(/* webpackChunkName: "reddit" */ '../components/9GAG/Publication.vue'),
+        component: () => import(/* webpackChunkName: "9GAG" */ '../components/9GAG/Publication.vue'),
     },
     {
         path: '/reddit',
@@ -24,7 +24,7 @@ const routes = [
         // route level code-splitting
         // this generates a separate chunk (about.[hash].js) for this route
         // which is lazy-loaded when the route is visited.
-        component: () => import(/* webpackChunkName: "reddit" */ '../components/Reddit/Article.vue'),
+        component: () => import('../components/Reddit/Article.vue'),
     },
     {
         path: '/signup',
@@ -32,7 +32,7 @@ const routes = [
         // route level code-splitting
         // this generates a separate chunk (about.[hash].js) for this route
         // which is lazy-loaded when the route is visited.
-        component: () => import(/* webpackChunkName: "reddit" */ '../components/Signup.vue'),
+        component: () => import('../components/Signup.vue'),
     },
     {
         path: '/utilisateur',
@@ -40,7 +40,7 @@ const routes = [
         // route level code-splitting
         // this generates a separate chunk (about.[hash].js) for this route
         // which is lazy-loaded when the route is visited.
-        component: () => import(/* webpackChunkName: "reddit" */ '../components/Utilisateur/Utilisateur.vue'),
+        component: () => import('../components/Utilisateur/Utilisateur.vue'),
     },
     {
         path: '/publication',
@@ -48,7 +48,7 @@ const routes = [
         // route level code-splitting
         // this generates a separate chunk (about.[hash].js) for this route
         // which is lazy-loaded when the route is visited.
-        component: () => import(/* webpackChunkName: "reddit" */ '../components/9GAG/Ajouter.vue'),
+        component: () => import(/* webpackChunkName: "9GAG" */ '../components/9GAG/Ajouter.vue'),
     },
 ];
 
