@@ -11,7 +11,7 @@
       </div>
       <div class="btn btn-primary mt-2" @click="logout" title="Se déconnecter">Se déconnecter</div>
       <br>
-      <div class="btn btn-primary mt-2" @click="supprimer" title="Supprimer mon compte">Supprimer mon compte</div>
+      <div class="btn btn-danger mt-2" @click="supprimer" title="Supprimer mon compte">Supprimer mon compte</div>
       <p class="text-danger mt-2" v-if="errorMsg">{{ errorMsg }}</p>
     </form>
   </div>

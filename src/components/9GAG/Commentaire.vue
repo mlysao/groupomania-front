@@ -1,12 +1,12 @@
 <template>
   <div class="mt-5 mb-5" v-if="login">
-    <button type="button" class="btn btn-primary mb-2" @click="displayCommentaires">
+    <button type="button" class="btn btn-primary mb-2" @click="displayCommentaires" title="Afficher commentaires">
       Commentaires <span class="badge bg-secondary" title="Nombre total de commentaires">{{ this.commentaires.length }}</span> <span class="badge bg-danger" title="Nombre de commentaires en attente de validation" v-if="utilisateur.role === 'MODERATEUR'">{{ this.commentairesNonModeres.length }}</span>
     </button>
-    <button type="button" class="btn btn-outline-primary mb-2 ml-2" @click="likePublication(1)">
+    <button type="button" class="btn btn-outline-success mb-2 ml-2" @click="likePublication(1)" title="Like">
       Like {{ this.likes }}
     </button>
-    <button type="button" class="btn btn-outline-danger mb-2 ml-2" @click="likePublication(-1)">
+    <button type="button" class="btn btn-outline-danger mb-2 ml-2" @click="likePublication(-1)" title="Dislike">
       Dislike {{ this.dislikes }}
     </button>
 
@@ -20,13 +20,13 @@
               <p class="alert-danger text-center">Commentaire en attente de validation</p>
             </div>
             <div>
-              <img class="avatar" :src="value.utilisateur.image_url" alt="Avatar"> Posté par {{ value.utilisateur.email_display }} le {{ value.date_publication }}
+              <img class="avatar" :src="value.utilisateur.image_url" alt="Avatar" title="Avatar"> Posté par {{ value.utilisateur.email_display }} <small class="text-muted">le {{ value.date_publication | formatDate }}</small> <span class="badge bg-success">{{ value.date_publication | duration }}</span>
             </div>
             <div class="mt-3">
               <h4>{{ value.contenu }}</h4>
             </div>
             <div id="moderateur" v-if="!value.modere && utilisateur.role === 'MODERATEUR'">
-              <div class="btn btn-danger mt-2" @click="valider(value.id)">Valider le commentaire</div>
+              <div class="btn btn-danger mt-2" @click="valider(value.id)" title="Valider le commentaire">Valider le commentaire</div>
               <p class="text-danger mt-2" v-if="errorMsg">{{ errorMsg }}</p>
             </div>
           </div>

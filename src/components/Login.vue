@@ -2,18 +2,23 @@
   <div class="card mb-5 p-5">
     <h2 class="text-md-left">Bienvenue</h2>
     <hr>
-    <form class="mt-5">
-      <div class="form-group">
-        <label for="email">Email</label>
-        <input type="email" id="email" class="form-control" v-model="formData.email" title="Email">
+    <div class="row">
+      <div class="col">
+        <form class="mt-5">
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" class="form-control" v-model="formData.email" title="Email">
+          </div>
+          <div class="form-group">
+            <label for="password">Mot de passe</label>
+            <input type="password" id="password" class="form-control" v-model="formData.password" title="Mot de passe">
+          </div>
+          <div class="btn btn-primary mt-2" @click="login" title="Se connecter">Se connecter</div>
+          <p class="text-danger mt-2" v-if="errorMsg">{{ errorMsg }}</p>
+        </form>
       </div>
-      <div class="form-group">
-        <label for="password">Mot de passe</label>
-        <input type="password" id="password" class="form-control" v-model="formData.password" title="Mot de passe">
-      </div>
-      <div class="btn btn-primary mt-2" @click="login" title="Se connecter">Se connecter</div>
-      <p class="text-danger mt-2" v-if="errorMsg">{{ errorMsg }}</p>
-    </form>
+      <div class="col"></div>
+    </div>
     <p class="mt-2">
       Nouvel utilisateur ? <router-link to="Signup" title="S'inscrire">S'inscrire</router-link>
     </p>

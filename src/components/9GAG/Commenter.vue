@@ -3,10 +3,10 @@
     <form>
       <div class="form-group">
         <div>
-          <input id="contenu" class="form-control" v-model="formData.contenu" placeholder="Ecrivez un commentaire" title="Commenter">
+          <input id="contenu" class="form-control" v-model="formData.contenu" placeholder="Ecrivez un commentaire" title="Commentaire">
         </div>
       </div>
-      <div class="btn btn-primary" @click="ajouter" title="Valider commentaire">Valider</div>
+      <div class="btn btn-primary" @click="ajouter" title="Commenter">Commenter</div>
       <p class="text-danger mt-2" v-if="errorMsg">{{ errorMsg }}</p>
     </form>
   </div>
