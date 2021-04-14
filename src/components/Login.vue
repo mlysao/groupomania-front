@@ -5,17 +5,17 @@
     <form class="mt-5">
       <div class="form-group">
         <label for="email">Email</label>
-        <input type="email" id="email" class="form-control" v-model="formData.email">
+        <input type="email" id="email" class="form-control" v-model="formData.email" title="Email">
       </div>
       <div class="form-group">
         <label for="password">Mot de passe</label>
-        <input type="password" id="password" class="form-control" v-model="formData.password">
+        <input type="password" id="password" class="form-control" v-model="formData.password" title="Mot de passe">
       </div>
-      <div class="btn btn-primary mt-2" @click="login">Se connecter</div>
+      <div class="btn btn-primary mt-2" @click="login" title="Se connecter">Se connecter</div>
       <p class="text-danger mt-2" v-if="errorMsg">{{ errorMsg }}</p>
     </form>
     <p class="mt-2">
-      Nouvel utilisateur ? <router-link to="Signup">S'inscrire</router-link>
+      Nouvel utilisateur ? <router-link to="Signup" title="S'inscrire">S'inscrire</router-link>
     </p>
   </div>
 </template>

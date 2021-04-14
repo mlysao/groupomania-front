@@ -3,7 +3,7 @@
     <button type="button" class="btn btn-primary mb-2" @click="displayCommentaires">
       Commentaires <span class="badge bg-secondary" title="Nombre total de commentaires">{{ this.commentaires.length }}</span> <span class="badge bg-danger" title="Nombre de commentaires en attente de validation" v-if="utilisateur.role === 'MODERATEUR'">{{ this.commentairesNonModeres.length }}</span>
     </button>
-    <button type="button" class="btn btn-outline-success mb-2 ml-2" @click="likePublication(1)">
+    <button type="button" class="btn btn-outline-primary mb-2 ml-2" @click="likePublication(1)">
       Like {{ this.likes }}
     </button>
     <button type="button" class="btn btn-outline-danger mb-2 ml-2" @click="likePublication(-1)">

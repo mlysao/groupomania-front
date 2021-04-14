@@ -12,8 +12,8 @@
         <input type="password" id="password" class="form-control" v-model="formData.password" title="Mot de passe">
       </div>
       <div class="form-group">
-        <label for="image">Avatar</label>
-        <input type="file" id="image" class="form-control-file" accept="image/jpeg, image/jpg, image/png" title="Avatar">
+        <label for="image">Photo profil</label>
+        <input type="file" id="image" class="form-control-file" accept="image/jpeg, image/jpg, image/png" title="Photo profil">
       </div>
       <div class="btn btn-primary mt-2" @click="signup" title="S'inscrire">S'inscrire</div> <div class="btn btn-light mt-2" @click="annuler" title="Annuler">Annuler</div>
       <p class="text-danger mt-2" v-if="errorMsg">{{ errorMsg }}</p>

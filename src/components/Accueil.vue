@@ -1,17 +1,21 @@
 <template>
-  <div class="card mb-5 p-5" v-if="login">
-    <h2 class="text-md-left">Bienvenue, vous êtes connecté</h2>
-    <hr>
-    <p class="mt-2">
-      Aller sur <router-link to="9GAG">9GAG</router-link> ou <router-link to="Reddit">Reddit</router-link> ou consulter <router-link to="Utilisateur">votre compte</router-link>
-    </p>
-    <p>
-      Vous n'êtes pas <strong>{{ utilisateur.email_display }}</strong>, <a href="/" @click="logout">se déconnecter</a>
-    </p>
+  <div v-if="login">
+    <div class="card mb-5 p-5">
+      <h2 class="text-md-left">Bienvenue, vous êtes connecté</h2>
+      <hr>
+      <p class="mt-2">
+        Aller sur <router-link to="9GAG" title="Aller sur 9GAG">9GAG</router-link> ou <router-link to="Reddit" title="Aller sur Reddit">Reddit</router-link> ou consulter <router-link to="Utilisateur" title="Aller sur votre compte">votre compte</router-link>
+      </p>
+      <p>
+        Vous n'êtes pas <strong>{{ utilisateur.email_display }}</strong>, <a href="/" @click="logout" title="Se déconnecter">se déconnecter</a>
+      </p>
+    </div>
   </div>
   <div v-else>
     <login></login>
   </div>
+
+
 </template>
 
 <script>
