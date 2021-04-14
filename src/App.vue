@@ -5,7 +5,9 @@
         <img alt="Groupomania logo" src="./assets/logo.png" class="fill" width="500" height="500" title="Retourner à la page d'accueil">
       </router-link>
     </div>
-    <router-view></router-view>
+    <div class="card mb-5 p-5">
+      <router-view></router-view>
+    </div>
   </div>
 </template>
 

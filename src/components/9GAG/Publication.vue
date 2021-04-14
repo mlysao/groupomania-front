@@ -1,7 +1,7 @@
 <template>
-  <div class="card mb-5 p-5" v-if="login">
-    <p v-if="utilisateur.role === 'MODERATEUR'" class="alert-danger text-center">Vous êtes le modérateur, <a href="/" @click="logout" title="Se déconnecter">se déconnecter</a></p>
-    <p v-if="utilisateur.role !== 'MODERATEUR'" class="alert-info text-center">Vous êtes connecté en tant que {{ this.utilisateur.email_display }}, <a href="/" @click="logout" title="Se déconnecter">se déconnecter</a></p>
+  <div id="publication">
+    <p v-if="utilisateur.role === 'MODERATEUR'" class="alert-danger text-center">Vous êtes le modérateur, <Logout></Logout> </p>
+    <p v-if="utilisateur.role !== 'MODERATEUR'" class="alert-info text-center">Vous êtes connecté en tant que {{ this.utilisateur.email_display }}, <Logout></Logout> </p>
     <h2 class="text-md-left">9GAG</h2>
     <router-link to="Publication" title="Ajouter une publication">Ajouter une publication</router-link>
     <hr>
@@ -32,21 +32,17 @@
       </li>
     </ul>
   </div>
-  <div class="card mb-5 p-5" v-else>
-    <h2 class="text-md-left">Accès non autorisé, vous n'êtes pas connecté</h2>
-    <hr>
-  </div>
 </template>
 
 <script>
 import Commentaire from "@/components/9GAG/Commentaire";
+import Logout from "@/components/Auth/Logout";
 
 export default {
   name: "Publication",
   data() {
     return {
       publications: [],
-      login: !!sessionStorage.getItem('token'),
       utilisateur: JSON.parse(sessionStorage.getItem('user')),
       errorMsg: ''
     }
@@ -72,15 +68,11 @@ export default {
           .catch(error => {
             this.errorMsg = error.response.data.error;
           })
-    },
-    logout: function (){
-      sessionStorage.removeItem('token');
-      sessionStorage.removeItem('user');
-      this.$router.push('/');
-    },
+    }
   },
   components: {
-    Commentaire
+    Commentaire,
+    Logout
   }
 }
 </script>

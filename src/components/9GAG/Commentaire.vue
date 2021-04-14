@@ -1,21 +1,23 @@
 <template>
-  <div class="mt-5 mb-5" v-if="login">
-    <button type="button" class="btn btn-primary mb-2" @click="displayCommentaires" title="Afficher commentaires">
-      Commentaires <span class="badge bg-secondary" title="Nombre total de commentaires">{{ this.commentaires.length }}</span> <span class="badge bg-danger" title="Nombre de commentaires en attente de validation" v-if="utilisateur.role === 'MODERATEUR'">{{ this.commentairesNonModeres.length }}</span>
-    </button>
-    <button type="button" class="btn btn-outline-success mb-2 ml-2" @click="likePublication(1)" title="Like">
-      Like {{ this.likes }}
-    </button>
-    <button type="button" class="btn btn-outline-danger mb-2 ml-2" @click="likePublication(-1)" title="Dislike">
-      Dislike {{ this.dislikes }}
-    </button>
+  <div id="commentaire" class="mt-5 mb-5">
+    <div>
+      <div class="btn btn-primary mb-2" @click="displayCommentaires" title="Afficher commentaires">
+        Commentaires <span class="badge bg-secondary" title="Nombre total de commentaires">{{ this.commentaires.length }}</span> <span class="badge bg-danger" title="Nombre de commentaires en attente de validation" v-if="utilisateur.role === 'MODERATEUR'">{{ this.nbCommentairesAValider }}</span>
+      </div>
+      <div class="btn btn-outline-success mb-2 ml-2" @click="likePublication(1)" title="Like">
+        Like {{ this.likes }}
+      </div>
+      <div class="btn btn-outline-danger mb-2 ml-2" @click="likePublication(-1)" title="Dislike">
+        Dislike {{ this.dislikes }}
+      </div>
+    </div>
 
     <div class="card-footer p-5" v-if="displayComments">
-      <Commenter :publication_id="this.publication_id" @refresh="refresh"></Commenter>
+      <Commenter :publication_id="this.publication" @refresh="refreshCommentaire"></Commenter>
       <hr>
       <ul class="liste">
         <li v-for="(value, index) in commentaires" :key="index">
-          <div id="commentaire">
+          <div>
             <div id="attente" v-if="!value.modere && utilisateur.id === value.utilisateur.id">
               <p class="alert-danger text-center">Commentaire en attente de validation</p>
             </div>
@@ -35,10 +37,6 @@
       </ul>
     </div>
   </div>
-  <div class="card mb-5 p-5" v-else>
-    <h2 class="text-md-left">Accès non autorisé, vous n'êtes pas connecté</h2>
-    <hr>
-  </div>
 </template>
 
 <script>
@@ -48,50 +46,32 @@ export default {
   name: "Commentaire",
   data() {
     return {
-      publication_id: this.publication,
       commentaires: [],
-      login: !!sessionStorage.getItem('token'),
-      utilisateur: JSON.parse(sessionStorage.getItem('user')),
-      errorMsg: '',
-      displayComments: false,
-      commentairesNonModeres: [],
+      nbCommentairesAValider: 0,
       likes: 0,
-      dislikes: 0
+      dislikes: 0,
+      displayComments: false,
+      errorMsg: '',
+      utilisateur: JSON.parse(sessionStorage.getItem('user')),
     }
   },
   props: ['publication'],
   mounted(){
-    this.$http
-        .get('http://localhost:3000/api/commentaires', { params: { publication: this.publication } })
-        .then(reponse => {
-          this.commentaires = reponse.data;
-        })
-    this.$http
-        .get('http://localhost:3000/api/commentaires', { params: { publication: this.publication, modere: false } })
-        .then(reponse => {
-          this.commentairesNonModeres = reponse.data;
-        })
-    this.$http
-        .get(`http://localhost:3000/api/publications/${this.publication}/like`)
-        .then(reponse => {
-          this.likes = reponse.data;
-        })
-    this.$http
-        .get(`http://localhost:3000/api/publications/${this.publication}/dislike`)
-        .then(reponse => {
-          this.dislikes = reponse.data;
-        })
+    this.refreshCommentaire()
+    this.refreshLike()
   },
   methods: {
     valider: function (id){
       const data = new FormData();
       data.append('modere', true);
-      data.append('publication_id', this.publication_id);
-
+      data.append('publication_id', this.publication);
       this.$http
           .put(`http://localhost:3000/api/commentaires/${id}`, data)
           .then(() => {
-            this.refresh();
+            this.refreshCommentaire();
+            // pour que la partie commentaires reste ouverte après la validation
+            this.displayComments = false;
+            this.displayCommentaires();
           })
           .catch(error => {
             this.errorMsg = error.response.data.error;
@@ -100,23 +80,17 @@ export default {
     displayCommentaires: function () {
       return this.displayComments = !this.displayComments;
     },
-    refresh: function () {
+    // méthode passer dans le composant Commenter pour permettre le déclenchement du refresh de la partie commentaires après la saisie d'un nouveau commentaire
+    refreshCommentaire: function () {
       this.$http
           .get('http://localhost:3000/api/commentaires', { params: { publication: this.publication } })
           .then(reponse => {
             this.commentaires = reponse.data;
-            this.displayComments = false;
-            this.displayCommentaires();
-          })
-      this.$http
-          .get('http://localhost:3000/api/commentaires', { params: { publication: this.publication, modere: false } })
-          .then(reponse => {
-            this.commentairesNonModeres = reponse.data;
+            this.nbCommentairesAValider = this.commentaires.filter(commentaire => commentaire.modere === false).length;
           })
     },
     likePublication: function (value) {
-      const data = new FormData();
-      data.append('like', 1);
+      // value = 1 like ou -1 dislike
       this.$http
           .post(`http://localhost:3000/api/publications/${this.publication}/like`, {
             like: value
@@ -132,12 +106,8 @@ export default {
       this.$http
           .get(`http://localhost:3000/api/publications/${this.publication}/like`)
           .then(reponse => {
-            this.likes = reponse.data;
-          })
-      this.$http
-          .get(`http://localhost:3000/api/publications/${this.publication}/dislike`)
-          .then(reponse => {
-            this.dislikes = reponse.data;
+            this.likes = reponse.data.likes;
+            this.dislikes = reponse.data.dislikes;
           })
     }
   },

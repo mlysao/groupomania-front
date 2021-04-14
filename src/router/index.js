@@ -17,6 +17,9 @@ const routes = [
         // this generates a separate chunk (about.[hash].js) for this route
         // which is lazy-loaded when the route is visited.
         component: () => import(/* webpackChunkName: "9GAG" */ '../components/9GAG/Publication.vue'),
+        meta: {
+            requiresAuth: true,
+        },
     },
     {
         path: '/reddit',
@@ -25,6 +28,9 @@ const routes = [
         // this generates a separate chunk (about.[hash].js) for this route
         // which is lazy-loaded when the route is visited.
         component: () => import('../components/Reddit/Article.vue'),
+        meta: {
+            requiresAuth: true,
+        },
     },
     {
         path: '/signup',
@@ -32,7 +38,7 @@ const routes = [
         // route level code-splitting
         // this generates a separate chunk (about.[hash].js) for this route
         // which is lazy-loaded when the route is visited.
-        component: () => import('../components/Signup.vue'),
+        component: () => import('../components/Auth/Signup.vue'),
     },
     {
         path: '/utilisateur',
@@ -41,6 +47,9 @@ const routes = [
         // this generates a separate chunk (about.[hash].js) for this route
         // which is lazy-loaded when the route is visited.
         component: () => import('../components/Utilisateur/Utilisateur.vue'),
+        meta: {
+            requiresAuth: true,
+        },
     },
     {
         path: '/publication',
@@ -48,7 +57,10 @@ const routes = [
         // route level code-splitting
         // this generates a separate chunk (about.[hash].js) for this route
         // which is lazy-loaded when the route is visited.
-        component: () => import(/* webpackChunkName: "9GAG" */ '../components/9GAG/Ajouter.vue'),
+        component: () => import(/* webpackChunkName: "9GAG" */ '../components/9GAG/Publier.vue'),
+        meta: {
+            requiresAuth: true,
+        },
     },
 ];
 
@@ -56,6 +68,22 @@ const router = new VueRouter({
     mode: 'history',
     base: process.env.BASE_URL,
     routes,
+});
+
+// check auth sinon retour sur accueil login
+router.beforeEach((to, from, next) => {
+    if (to.matched.some((record) => record.meta.requiresAuth)) {
+        if (!sessionStorage.getItem('token')) {
+            next({
+                path: "/",
+                params: {nextUrl: to.fullPath},
+            });
+        } else {
+            next();
+        }
+    } else {
+        next();
+    }
 });
 
 export default router

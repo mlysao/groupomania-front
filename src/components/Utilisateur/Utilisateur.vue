@@ -1,10 +1,10 @@
 <template>
-  <div class="card mb-5 p-5" v-if="login">
+  <div id="utilisateur">
     <h2 class="text-md-left">Mon compte</h2>
     <hr>
     <form class="mt-5">
       <div class="form-group">
-        <img alt="Photo profil" class="img-thumbnail" :src="utilisateur.image_url">
+        <img alt="Photo profil" class="img-thumbnail" :src="utilisateur.image_url" title="Photo profil">
       </div>
       <div class="form-group">
         {{ utilisateur.email_display }}
@@ -15,10 +15,6 @@
       <p class="text-danger mt-2" v-if="errorMsg">{{ errorMsg }}</p>
     </form>
   </div>
-  <div class="card mb-5 p-5" v-else>
-    <h2 class="text-md-left">Accès non autorisé, vous n'êtes pas connecté</h2>
-    <hr>
-  </div>
 </template>
 
 <script>
@@ -26,7 +22,6 @@ export default {
   name: "Utilisateur",
   data() {
     return {
-      login: !!sessionStorage.getItem('token'),
       utilisateur: JSON.parse(sessionStorage.getItem('user')),
       errorMsg: ''
     }
@@ -41,16 +36,13 @@ export default {
       this.$http
           .delete(`http://localhost:3000/api/auth/${this.utilisateur.id}`)
           .then(() => {
-            sessionStorage.removeItem('token');
-            sessionStorage.removeItem('user');
-            this.$router.push('/');
+            this.logout()
           })
           .catch(error => {
             this.errorMsg = error.response.data.error;
           })
     }
-  }
-
+  },
 }
 </script>
 

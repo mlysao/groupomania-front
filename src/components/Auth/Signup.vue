@@ -1,5 +1,5 @@
 <template>
-  <div class="card mb-5 p-5">
+  <div id="signup">
     <h2 class="text-md-left">Nouvel utilisateur</h2>
     <hr>
     <div class="row">

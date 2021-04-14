@@ -1,5 +1,5 @@
 <template>
-  <div class="card mb-5 p-5" v-if="login">
+  <div id="publier">
     <h2 class="text-md-left">Ajouter une publication</h2>
     <hr>
     <form class="mt-5">
@@ -11,13 +11,9 @@
         <label for="image">Image</label>
         <input type="file" id="image" class="form-control-file" accept="image/jpeg, image/jpg, image/png, image/gif" title="Image à publier">
       </div>
-      <div class="btn btn-primary mt-2" @click="ajouter" title="Valider publication">Valider</div> <div class="btn btn-secondary mt-2" @click="annuler" title="Annuler">Annuler</div>
+      <div class="btn btn-primary mt-2" @click="publier" title="Valider publication">Valider</div> <div class="btn btn-secondary mt-2" @click="annuler" title="Annuler">Annuler</div>
       <p class="text-danger mt-2" v-if="errorMsg">{{ errorMsg }}</p>
     </form>
-  </div>
-  <div class="card mb-5 p-5" v-else>
-    <h2 class="text-md-left">Accès non autorisé, vous n'êtes pas connecté</h2>
-    <hr>
   </div>
 </template>
 
@@ -29,12 +25,11 @@ export default {
       formData: {
         description: ''
       },
-      errorMsg: '',
-      login: !!sessionStorage.getItem('token'),
+      errorMsg: ''
     }
   },
   methods: {
-    ajouter: function (){
+    publier: function (){
       const data = new FormData();
       data.append('publication', JSON.stringify(this.formData));
       data.append('image', document.getElementById('image').files[0]);
