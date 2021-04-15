@@ -5,10 +5,10 @@
         Commentaires <span class="badge bg-secondary" title="Nombre total de commentaires">{{ this.commentaires.length }}</span> <span class="badge bg-danger" title="Nombre de commentaires en attente de validation" v-if="utilisateur.role === 'MODERATEUR'">{{ this.nbCommentairesAValider }}</span>
       </div>
       <div class="btn btn-outline-success mb-2 ml-2" @click="likePublication(1)" title="Like">
-        Like {{ this.likes }}
+        + {{ this.likes }}
       </div>
       <div class="btn btn-outline-danger mb-2 ml-2" @click="likePublication(-1)" title="Dislike">
-        Dislike {{ this.dislikes }}
+        - {{ this.dislikes }}
       </div>
     </div>
 
