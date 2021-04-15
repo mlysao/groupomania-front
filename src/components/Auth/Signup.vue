@@ -2,8 +2,6 @@
   <div id="signup">
     <h2 class="text-md-left">Nouvel utilisateur</h2>
     <hr>
-    <div class="row">
-      <div class="col">
         <form class="mt-5">
           <div class="form-group">
             <label for="email">Email</label>
@@ -20,9 +18,6 @@
           <div class="btn btn-primary mt-2" @click="signup" title="S'inscrire">S'inscrire</div> <div class="btn btn-secondary mt-2" @click="annuler" title="Annuler">Annuler</div>
           <p class="text-danger mt-2" v-if="errorMsg">{{ errorMsg }}</p>
         </form>
-      </div>
-      <div class="col"></div>
-    </div>
   </div>
 </template>
 
